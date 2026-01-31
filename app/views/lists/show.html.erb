@@ -2,11 +2,13 @@
 
 <%= link_to "Bookmark a movie", new_list_bookmark_path(@list) %>
 
+<div><%= pluralize(@bookmarks.count, "movie") %></div>
+
 <div>
   <% @bookmarks.each do |bookmark| %>
     <% movie = bookmark.movie %>
     <div>
-      <%= image_tag movie.poster_url, alt: "movie.title" %>
+      <%= image_tag movie.poster_url, alt: "movie.title", size: "200x300" %>
       <%= movie.title %>
       <%= movie.rating %>
       <%= movie.overview %>

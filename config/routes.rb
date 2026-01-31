@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "lists#index"
-  resources :lists, only: %i[index show new create] do
+  resources :lists, except: %i[edit update] do
     resources :bookmarks, only: %i[new create]
   end
-  resources :destroy
+  resources :bookmarks, only: [:destroy]
 end
