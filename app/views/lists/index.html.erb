@@ -1,6 +1,14 @@
 <h1>Movie Lists</h1>
+<h2>Save any kind of movies</h2>
 
-<ul>
-  <% @lists.each do |list| %>
-  <li><%= list.name %></li>
-</ul>
+<div class="d-flex flex-column gap-5">
+  <h2>My Lists</h2>
+  <div class="d-flex">
+    <% @lists.each do |list| %>
+      <%= link_to list.name, list_path(list) %>
+      <%# <%= image_tag , alt: "text", class: "hv-10" %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "Create a movie list", new_list_path %>
