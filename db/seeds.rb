@@ -8,50 +8,85 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# puts "Cleaning database..."
+# Bookmark.destroy_all
+# List.destroy_all
+# Movie.destroy_all
+
+# puts "Creating movies..."
+# wonder_woman = Movie.create!(
+#   title: "Wonder Woman 1984",
+#   overview: "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s",
+#   poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+#   rating: 6.9
+# )
+
+# shawshank = Movie.create!(
+#   title: "The Shawshank Redemption",
+#   overview: "Framed in the 1940s for double murder...",
+#   poster_url: "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+#   rating: 8.7
+# )
+
+# titanic = Movie.create!(
+#   title: "Titanic",
+#   overview: "101-year-old Rose DeWitt Bukater tells the story...",
+#   poster_url: "https://image.tmdb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+#   rating: 7.9
+# )
+
+# oceans = Movie.create!(
+#   title: "Ocean's Eight",
+#   overview: "Debbie Ocean, a criminal mastermind...",
+#   poster_url: "https://image.tmdb.org/t/p/original/MvYpKlpFukTivnlBhizGbkAe3v.jpg",
+#   rating: 7.0
+# )
+
+# puts "Creating lists..."
+# drama = List.create!(name: "Drama")
+# favs = List.create!(name: "All time favs")
+# girl_power = List.create!(name: "Girl Power")
+
+# puts "Creating bookmarks..."
+# Bookmark.create!(comment: "Recommended by John", movie: titanic, list: favs)
+# Bookmark.create!(comment: "Superhero movie revisited in 2020", movie: wonder_woman, list: girl_power)
+# Bookmark.create!(comment: "Spielberg's masterly Oscar-winning drama", movie: shawshank, list: drama)
+# Bookmark.create!(comment: "2020 release", movie: oceans, list: favs)
+# Bookmark.create!(comment: "Based on Stephen King's novel", movie: shawshank, list: girl_power)
+
+# puts "Finished! Created #{Movie.count} movies, #{List.count} lists and #{Bookmark.count} bookmarks."
+
+require "open-uri"
+require "json"
+
 puts "Cleaning database..."
 Bookmark.destroy_all
 List.destroy_all
 Movie.destroy_all
 
+puts "Fetching top-rated movies from TMDB..."
+tmdb_url = "https://tmdb.lewagon.com/movie/top_rated"
+tmdb_serialized = URI.open(tmdb_url).read
+tmdb_data = JSON.parse(tmdb_serialized)
+
 puts "Creating movies..."
-wonder_woman = Movie.create!(
-  title: "Wonder Woman 1984",
-  overview: "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s",
-  poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
-  rating: 6.9
-)
-
-shawshank = Movie.create!(
-  title: "The Shawshank Redemption",
-  overview: "Framed in the 1940s for double murder...",
-  poster_url: "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
-  rating: 8.7
-)
-
-titanic = Movie.create!(
-  title: "Titanic",
-  overview: "101-year-old Rose DeWitt Bukater tells the story...",
-  poster_url: "https://image.tmdb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
-  rating: 7.9
-)
-
-oceans = Movie.create!(
-  title: "Ocean's Eight",
-  overview: "Debbie Ocean, a criminal mastermind...",
-  poster_url: "https://image.tmdb.org/t/p/original/MvYpKlpFukTivnlBhizGbkAe3v.jpg",
-  rating: 7.0
-)
+tmdb_data["results"].each do |movie|
+  Movie.create!(
+    title: movie["title"],
+    overview: movie["overview"],
+    poster_url: "https://image.tmdb.org/t/p/original#{movie['poster_path']}",
+    rating: movie["vote_average"]
+  )
+end
 
 puts "Creating lists..."
 drama = List.create!(name: "Drama")
 favs = List.create!(name: "All time favs")
-girl_power = List.create!(name: "Girl Power")
+superhero = List.create!(name: "Superhero")
 
 puts "Creating bookmarks..."
-Bookmark.create!(comment: "Recommended by John", movie: titanic, list: favs)
-Bookmark.create!(comment: "Superhero movie revisited in 2020", movie: wonder_woman, list: girl_power)
-Bookmark.create!(comment: "Spielberg's masterly Oscar-winning drama", movie: shawshank, list: drama)
-Bookmark.create!(comment: "2020 release", movie: oceans, list: favs)
-Bookmark.create!(comment: "Based on Stephen King's novel", movie: shawshank, list: girl_power)
+Bookmark.create!(comment: "Classic drama", movie: Movie.find_by(title: "The Shawshank Redemption"), list: drama)
+Bookmark.create!(comment: "Must-watch movie", movie: Movie.find_by(title: "The Dark Knight"), list: superhero)
+Bookmark.create!(comment: "Recommended by John", movie: Movie.find_by(title: "The Godfather"), list: favs)
 
 puts "Finished! Created #{Movie.count} movies, #{List.count} lists and #{Bookmark.count} bookmarks."
