@@ -7,6 +7,7 @@ class ListsController < ApplicationController
 
   def show
     @bookmarks = @list.bookmarks
+    @bookmark = Bookmark.new
   end
 
   def new
@@ -27,7 +28,7 @@ class ListsController < ApplicationController
     redirect_to lists_path, status: :see_other
   end
 
-  
+
   private
 
   def set_list

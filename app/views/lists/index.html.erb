@@ -15,6 +15,11 @@
       <% @lists.each do |list| %>
         <div class="col-md-4 col-sm-12 mb-3">
           <div class="card-category">
+            <%= link_to list_path(list),
+                data: { turbo_method: :delete, turbo_confirm: "Delete this list?" },
+                class: "delete-icon" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
             <%= link_to list.name, list_path(list), class: "text-decoration-none text-white" %>
           </div>
         </div>

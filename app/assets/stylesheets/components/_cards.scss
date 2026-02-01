@@ -1,4 +1,5 @@
 .card-category {
+  position: relative; /* key */
   background-image: asset-url("list_background.jpg");
   background-size: cover;
   background-position: center;
@@ -11,5 +12,18 @@
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0,0,0,1);
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  filter: grayscale(100%);
+  filter: grayscale(80%);
+}
+
+.delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.delete-icon:hover {
+  opacity: 1;
+  color: #dc3545;
 }
