@@ -1,0 +1,11 @@
+.placeholder-low-opacity::placeholder {
+  opacity: 0.4;
+}
+
+.select-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.select-placeholder option:not([value=""]) {
+  color: black;
+}

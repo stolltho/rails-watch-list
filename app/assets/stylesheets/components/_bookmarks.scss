@@ -1,0 +1,13 @@
+.bookmark-category {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  min-height: 220px;
+}
+
+#bookmark-overview {
+  font-size: 14px;
+  color: grey;
+}

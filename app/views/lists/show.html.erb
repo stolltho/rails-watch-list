@@ -1,22 +1,46 @@
-<h1><%= @list.name %></h1>
+<div class="banner-show position-relative">
+  <h1><%= @list.name %></h1>
+  <div class="position-absolute top-0 end-0 p-2 m-2 movie-tag">
+    <%= pluralize(@bookmarks.count, "movie") %>
+  </div>
+</div>
 
-<%= link_to "Bookmark a movie", new_list_bookmark_path(@list) %>
+<div class="container py-5">
 
-<div><%= pluralize(@bookmarks.count, "movie") %></div>
+  <div class="d-flex align-items-center justify-content-end mb-4">
+    <%= link_to "Bookmark a movie", new_list_bookmark_path(@list), class: "btn btn-success text-white"%>
+  </div>
 
-<div>
-  <% @bookmarks.each do |bookmark| %>
-    <% movie = bookmark.movie %>
-    <div>
-      <%= image_tag movie.poster_url, alt: "movie.title", size: "200x300" %>
-      <%= movie.title %>
-      <%= movie.rating %>
-      <%= movie.overview %>
-      <%= bookmark.comment %>
+  <div class="row">
+    <% @bookmarks.each do |bookmark| %>
+      <div class="col-md-6 col-sm-12 mb-3">
+        <% movie = bookmark.movie %>
+        <div class="bookmark-category">
 
-      <%= link_to "Delete",
-        lists_path(@list),
-        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </div>
-  <% end %>
+          <%= image_tag movie.poster_url, alt: movie.title, class: "poster-img" %>
+
+          <div class="p-3 d-flex flex-column flex-grow-1">
+
+            <div class="d-flex align-items-center mb-2 gap-2">
+              <h5 class="mb-0"><%= movie.title %></h5>
+              <span>⭐ <%= movie.rating %></span>
+            </div>
+
+            <p class="mb-2" id="bookmark-overview"><%= movie.overview %></p>
+
+            <div class="d-flex justify-content-between align-items-center mt-auto small">
+              <p class="mb-0">
+                <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %>
+              </p>
+              <%= link_to "delete",
+                  bookmark_path(bookmark),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                  class: "text-decoration-none text-danger" %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -1,7 +1,20 @@
-<h1>Bookmark Movie</h1>
+<div class="banner-show">
+  <h1>Bookmark Movie to <%= @list.name %> List</h1>
+</div>
 
-<%= simple_form_for([@list, @bookmark]) do |f| %>
-  <%= f.input :comment, placeholder: "Enter comment" %>
-  <%= f.association :movie, prompt: "Select a movie" %>
-  <%= f.submit %>
-<% end %>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-lg-3">
+      <div class="bg-white rounded p-3 shadow">
+        <%= simple_form_for([@list, @bookmark]) do |f| %>
+          <%= f.input :comment, placeholder: "Enter a comment about the movie", input_html: { class: 'placeholder-low-opacity' }%>
+          <%= f.association :movie, prompt: "Select a movie", input_html: { class: 'select-placeholder'} %>
+          <div class="d-flex justify-content-between">
+            <%= f.submit class: 'btn btn-success text-white' %>
+            <%= link_to "Cancel", list_path(@list), class: "btn btn-danger" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
