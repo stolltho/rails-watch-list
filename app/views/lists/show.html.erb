@@ -7,48 +7,37 @@
 
 <div class="container py-5">
   <div class="d-flex align-items-center justify-content-between mb-4">
-    <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved any movies yet!" if @list.movies.empty? %></em></small></span>
-    <%# <%= link_to "Bookmark a movie", new_list_bookmark_path(@list), class: "btn btn-success text-white"%>
-      <div class="d-flex gap-3">
-        <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#new_movie_modal">
-          Bookmark a movie
-        </button>
-        <%= link_to "Delete this list", list_path(@list), class: "btn btn-danger text-white", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this list?" } %>
-      </div>
+    <span class="mb-2 d-block">
+      <small>
+        <em class="text-muted">
+          <%= "You haven't saved any movies yet!" if @list.movies.empty? %>
+        </em>
+      </small>
+    </span>
+
+    <div class="d-flex gap-3">
+      <button class="btn btn-success text-white"
+              data-bs-toggle="modal"
+              data-bs-target="#new_movie_modal">
+        Bookmark a movie
+      </button>
+
+      <%= link_to "Delete this list",
+        list_path(@list),
+        class: "btn btn-danger text-white",
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </div>
   </div>
 
-  <div class="row">
-    <% @bookmarks.each do |bookmark| %>
-      <div class="col-md-6 col-sm-12 mb-3">
-        <% movie = bookmark.movie %>
-        <div class="bookmark-category">
-
-          <%= image_tag movie.poster_url, alt: movie.title, class: "poster-img" %>
-
-          <div class="p-3 d-flex flex-column flex-grow-1">
-
-            <div class="d-flex align-items-center mb-2 gap-2">
-              <h5 class="mb-0"><%= movie.title %></h5>
-              <span>⭐ <%= movie.rating.round(1) %></span>
-            </div>
-
-            <p class="mb-2" id="bookmark-overview"><%= movie.overview %></p>
-
-            <div class="d-flex justify-content-between align-items-center mt-auto small">
-              <p class="mb-0">
-                <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %>
-              </p>
-              <%= link_to "delete",
-                  bookmark_path(bookmark),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                  class: "text-decoration-none text-danger" %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render "bookmarks/bookmarks", bookmarks: @bookmarks %>
+  <%= render "reviews/reviews", list: @list, review: @review %>
 </div>
 
 <%= render "bookmarks/modal", list: @list, bookmark: @bookmark %>
+
+<% if @bookmark.errors.any? %>
+  <script>
+    var myModal = new bootstrap.Modal(document.getElementById('new_movie_modal'));
+    myModal.show();
+  </script>
+<% end %>

@@ -1,0 +1,34 @@
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse; /* so hovering works from left to right */
+  justify-content: flex-end;
+}
+
+.star-rating input {
+  display: none; /* hide radio buttons */
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 2rem; /* Increased size here */
+  color: #ccc; /* grey/opaque stars by default */
+  margin-right: 5px;
+  transition: color 0.2s;
+  line-height: 1; /* Fix vertical alignment if needed */
+}
+
+/* hover effect: highlight all stars to the left */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffc107; /* yellow */
+}
+
+/* checked effect: selected rating and all previous stars */
+.star-rating input:checked ~ label {
+  color: #ffc107 !important; /* yellow for selected and all to the left */
+}
+
+.star-yellow {
+  color: #ffc107;
+  font-size: 1.5rem;
+}

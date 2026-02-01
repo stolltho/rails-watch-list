@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :list
 
-  validates :rating, presence: true
+  validates :comment, presence: true
+  validates :rating, presence: { message: "must be added" }
 end

@@ -1,0 +1,31 @@
+<div class="row">
+  <% bookmarks.each do |bookmark| %>
+    <div class="col-md-6 col-sm-12 mb-3">
+      <% movie = bookmark.movie %>
+      <div class="bookmark-category">
+
+        <%= image_tag movie.poster_url, alt: movie.title, class: "poster-img" %>
+
+        <div class="p-3 d-flex flex-column flex-grow-1">
+          <div class="d-flex align-items-center mb-2 gap-2">
+            <h5 class="mb-0"><%= movie.title %></h5>
+            <span>⭐ <%= movie.rating.round(1) %></span>
+          </div>
+
+          <p class="mb-2" id="bookmark-overview"><%= movie.overview %></p>
+
+          <div class="d-flex justify-content-between align-items-center mt-auto small">
+            <p class="mb-0">
+              <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %>
+            </p>
+            <%= link_to "delete",
+              bookmark_path(bookmark),
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "text-decoration-none text-danger" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>
