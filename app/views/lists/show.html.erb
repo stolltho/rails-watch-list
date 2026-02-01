@@ -29,7 +29,7 @@
 
             <div class="d-flex align-items-center mb-2 gap-2">
               <h5 class="mb-0"><%= movie.title %></h5>
-              <span>⭐ <%= movie.rating %></span>
+              <span>⭐ <%= movie.rating.round(1) %></span>
             </div>
 
             <p class="mb-2" id="bookmark-overview"><%= movie.overview %></p>

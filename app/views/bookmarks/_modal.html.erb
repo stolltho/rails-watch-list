@@ -9,8 +9,8 @@
 
       <%= simple_form_for([list, bookmark]) do |f| %>
         <div class="modal-body">
-          <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Select a movie", input_html: { class: 'select-placeholder'} %>
-          <%= f.input :comment, placeholder: "Enter a comment about the movie", input_html: { class: 'placeholder-low-opacity'} %>
+          <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Select a movie"%>
+          <%= f.input :comment, placeholder: "Enter a comment about the movie", input_html: { class: 'placeholder-low-opacity' } %>
         </div>
         <div class="modal-footer">
           <%= f.submit "Add movie", class: "btn btn-success text-white" %>
