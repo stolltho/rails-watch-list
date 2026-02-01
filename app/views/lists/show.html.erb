@@ -36,6 +36,9 @@
 <%= render "bookmarks/modal", list: @list, bookmark: @bookmark %>
 
 <% if @bookmark.errors.any? %>
+  <% content_for :head do %>
+    <meta name="turbo-cache-control" content="no-cache">
+  <% end %>
   <script>
     var myModal = new bootstrap.Modal(document.getElementById('new_movie_modal'));
     myModal.show();

@@ -19,7 +19,7 @@
           <%= f.association :movie, prompt: "Select a movie", input_html: { class: 'select-placeholder'} %>
           <div class="d-flex justify-content-between">
             <%= f.submit class: 'btn btn-success text-white' %>
-            <%= link_to "Cancel", list_path(@list), class: "btn btn-danger" %>
+            <%= link_to "Cancel", list_path(@list), class: "btn btn-danger text-white" %>
           </div>
         <% end %>
       </div>

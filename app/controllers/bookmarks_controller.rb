@@ -14,7 +14,7 @@ class BookmarksController < ApplicationController
     else
       @bookmarks = @list.bookmarks
       @review = Review.new
-      render "lists/show", status: :unprocessable_entity
+      render "lists/show", status: :unprocessable_content
     end
   end
 
