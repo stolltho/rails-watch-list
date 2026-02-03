@@ -1,4 +1,14 @@
-<div class="banner-show position-relative">
+<% bg_image =
+  if @list.photo.attached?
+    cl_image_path(@list.photo.key, width: 1200, height: 300, crop: :fill, quality: :auto, fetch_format: :auto)
+  else
+    asset_path("list_background.jpg")
+  end
+%>
+
+<div class="banner-show position-relative"
+      style="background-image: url('<%= bg_image %>')">
+
   <h1><%= @list.name %></h1>
   <div class="position-absolute top-0 end-0 p-2 m-2 movie-tag">
     <%= pluralize(@bookmarks.count, "movie") %>

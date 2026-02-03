@@ -8,6 +8,7 @@
       <div class="bg-white rounded p-3 shadow">
         <%= simple_form_for @list do |f| %>
           <%= f.input :name, placeholder: 'Drama', input_html: { class: 'placeholder-low-opacity' } %>
+          <%= f.input :photo, as: :file %>
           <div class="d-flex justify-content-between">
             <%= f.submit class: 'btn btn-success text-white' %>
             <%= link_to "Cancel", lists_path, class: "btn btn-danger text-white" %>
